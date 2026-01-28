@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(tree:*)",
+      "Bash(find:*)",
+      "Bash(ls:*)",
+      "Bash(cmd /c dir \"D:\\\\Github\\\\Clients\\\\forge\\\\Website & Portal Template \\(structure and scripts only\\)\" /s /b)",
+      "Bash(powershell -NoProfile -Command:*)",
+      "WebFetch(domain:forgeaotearoa.nz)"
+    ]
+  }
+}
