@@ -10,13 +10,13 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Source+Sans+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Styles -->
   <link rel="stylesheet" href="css/styles.css">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%230f2847'/%3E%3Cpath d='M30 65 L50 25 L70 65 M40 50 L60 50' stroke='%23f59e0b' stroke-width='6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="icon" type="image/png" href="images/logo.png">
 </head>
 <body>
   <!-- Auth Screen (Login) -->
@@ -24,46 +24,57 @@
     <div class="auth-brand">
       <div class="auth-brand-content">
         <div class="auth-brand-logo">
-          <svg viewBox="0 0 40 40" width="40" height="40" fill="none">
-            <circle cx="20" cy="20" r="18" fill="#f59e0b"/>
-            <path d="M12 28 L20 10 L28 28 M16 21 L24 21" stroke="#0f2847" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+          <img src="images/logo.png" alt="Forge Aotearoa" style="height: 40px; width: auto;">
           Forge Aotearoa
         </div>
         <h1 class="auth-brand-title">Welcome to the Pioneer Portal</h1>
         <p class="auth-brand-text">
-          Connect with fellow pioneers, access resources, join discussions, and stay updated on events happening across Aotearoa.
+          Living from Love. Dwelling in God's Presence. Connect with fellow wayfinders, access resources, join discussions, and journey together.
         </p>
       </div>
     </div>
 
     <div class="auth-form-container">
-      <form class="auth-form" id="loginForm">
+      <div class="auth-form">
         <h2 class="auth-form-title">Sign In</h2>
-        <p class="auth-form-subtitle">Welcome back! Enter your credentials to continue.</p>
+        <p class="auth-form-subtitle">Select a demo user to explore the portal.</p>
 
-        <div class="form-group">
-          <label class="form-label" for="loginEmail">Email or Username</label>
-          <input type="text" id="loginEmail" class="form-input" placeholder="Enter your email or username" value="demo@forge.nz">
+        <div class="auth-users" id="userSelect">
+          <div class="auth-user-option selected" data-user="admin">
+            <div class="auth-user-avatar" style="background: var(--color-secondary);">DT</div>
+            <div class="auth-user-info">
+              <p class="auth-user-name">Darryl Tempero</p>
+              <p class="auth-user-role">Admin</p>
+            </div>
+          </div>
+
+          <div class="auth-user-option" data-user="host">
+            <div class="auth-user-avatar" style="background: var(--color-accent);">SS</div>
+            <div class="auth-user-info">
+              <p class="auth-user-name">Stuart Simpson</p>
+              <p class="auth-user-role">Host</p>
+            </div>
+          </div>
+
+          <div class="auth-user-option" data-user="member">
+            <div class="auth-user-avatar" style="background: var(--color-primary);">ST</div>
+            <div class="auth-user-info">
+              <p class="auth-user-name">Sarah Thompson</p>
+              <p class="auth-user-role">Member</p>
+            </div>
+          </div>
         </div>
 
-        <div class="form-group">
-          <label class="form-label" for="loginPassword">Password</label>
-          <input type="password" id="loginPassword" class="form-input" placeholder="Enter your password" value="demo123">
-        </div>
-
-        <button type="submit" class="btn btn-primary btn-lg">Sign In</button>
-
-        <p class="auth-link" style="margin-top: var(--space-6);">
-          <strong>Demo Mode:</strong> Click Sign In to explore the portal.
-        </p>
+        <button type="button" class="btn btn-primary btn-lg" id="loginBtn" style="width: 100%; margin-top: var(--space-6);">
+          Sign In as Demo User
+        </button>
 
         <div class="auth-divider">or</div>
 
         <p class="auth-link">
           <a href="index.html">Return to Website</a>
         </p>
-      </form>
+      </div>
     </div>
   </div>
 
@@ -72,10 +83,7 @@
     <!-- Sidebar -->
     <aside class="portal-sidebar" id="portalSidebar">
       <a href="index.html" class="sidebar-logo">
-        <svg viewBox="0 0 40 40" width="32" height="32" fill="none">
-          <circle cx="20" cy="20" r="18" fill="#f59e0b"/>
-          <path d="M12 28 L20 10 L28 28 M16 21 L24 21" stroke="#0f2847" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+        <img src="images/logo.png" alt="Forge" style="height: 32px; width: auto;">
         Forge Portal
       </a>
 
@@ -121,36 +129,28 @@
               Resources
             </a>
           </li>
+          <li class="sidebar-nav-item admin-only" style="display: none;">
+            <a href="#admin" class="sidebar-nav-link" data-page="admin">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+              </svg>
+              Admin
+            </a>
+          </li>
         </ul>
 
         <p class="sidebar-section-title">Your Groups</p>
-        <ul class="sidebar-nav">
-          <li class="sidebar-nav-item">
-            <a href="#group-wayfinders" class="sidebar-nav-link" data-page="group-detail" data-group="wayfinders">
-              <span style="width: 20px; height: 20px; background: #f59e0b; border-radius: 4px;"></span>
-              Wayfinders Network
-            </a>
-          </li>
-          <li class="sidebar-nav-item">
-            <a href="#group-spirituality" class="sidebar-nav-link" data-page="group-detail" data-group="spirituality">
-              <span style="width: 20px; height: 20px; background: #06b6d4; border-radius: 4px;"></span>
-              Spirituality Circle
-            </a>
-          </li>
-          <li class="sidebar-nav-item">
-            <a href="#group-pioneers" class="sidebar-nav-link" data-page="group-detail" data-group="pioneers">
-              <span style="width: 20px; height: 20px; background: #10b981; border-radius: 4px;"></span>
-              Christchurch Pioneers
-            </a>
-          </li>
+        <ul class="sidebar-nav" id="sidebarGroups">
+          <!-- Populated by JS -->
         </ul>
       </nav>
 
-      <div class="sidebar-user">
-        <div class="sidebar-user-avatar">ST</div>
+      <div class="sidebar-user" id="sidebarUser">
+        <div class="sidebar-user-avatar">DT</div>
         <div class="sidebar-user-info">
-          <p class="sidebar-user-name">Sarah Thompson</p>
-          <p class="sidebar-user-role">Member</p>
+          <p class="sidebar-user-name">Darryl Tempero</p>
+          <p class="sidebar-user-role">Admin</p>
         </div>
       </div>
     </aside>
@@ -159,7 +159,7 @@
     <main class="portal-main">
       <!-- Header -->
       <header class="portal-header">
-        <button class="btn btn-ghost btn-icon" id="sidebarToggle" style="display: none;">
+        <button class="btn btn-ghost btn-icon" id="sidebarToggle">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <line x1="3" y1="12" x2="21" y2="12"/>
             <line x1="3" y1="6" x2="21" y2="6"/>
@@ -176,13 +176,14 @@
         </div>
 
         <div class="portal-header-actions">
-          <button class="portal-notification-btn">
+          <button class="portal-notification-btn" id="notificationBtn">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
               <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
             </svg>
             <span class="notification-badge">3</span>
           </button>
+          <button class="btn btn-ghost btn-sm" id="logoutBtn">Sign Out</button>
           <a href="index.html" class="btn btn-outline btn-sm">Back to Site</a>
         </div>
       </header>
@@ -192,8 +193,8 @@
         <!-- Dashboard Page -->
         <div id="page-home" class="portal-page">
           <div style="margin-bottom: var(--space-8);">
-            <h1 style="font-size: var(--text-3xl); margin-bottom: var(--space-2);">Welcome back, Sarah!</h1>
-            <p style="color: var(--color-gray-500);">Here's what's happening in your pioneer community.</p>
+            <h1 style="font-size: var(--text-3xl); margin-bottom: var(--space-2);" id="welcomeTitle">Welcome back!</h1>
+            <p style="color: var(--color-gray-500);">Here's what's happening in your wayfinding community.</p>
           </div>
 
           <!-- Stats -->
@@ -207,7 +208,7 @@
                   <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
                 </svg>
               </div>
-              <div class="stat-card-value">3</div>
+              <div class="stat-card-value" id="statGroups">3</div>
               <div class="stat-card-label">Your Groups</div>
             </div>
 
@@ -267,17 +268,6 @@
                 </div>
                 <div class="event-item">
                   <div class="event-item-date">
-                    <span class="event-item-day">18</span>
-                    <span class="event-item-month">Mar</span>
-                  </div>
-                  <div class="event-item-info">
-                    <h4>Exploring Wayfinding Session</h4>
-                    <p>7:30pm - 8:45pm | Online via Zoom</p>
-                  </div>
-                  <span class="btn btn-sm btn-secondary event-item-action">Going</span>
-                </div>
-                <div class="event-item">
-                  <div class="event-item-date">
                     <span class="event-item-day">15</span>
                     <span class="event-item-month">May</span>
                   </div>
@@ -297,23 +287,13 @@
               </div>
               <div class="message-list">
                 <div class="message-item">
-                  <div class="message-avatar">DT</div>
-                  <div class="message-content">
-                    <div class="message-header">
-                      <span class="message-author">Darryl Tempero</span>
-                      <span class="message-time">2 hours ago</span>
-                    </div>
-                    <p class="message-text">Posted in Wayfinders Network: "Great discussion last night about missional community!"</p>
-                  </div>
-                </div>
-                <div class="message-item">
                   <div class="message-avatar">AO</div>
                   <div class="message-content">
                     <div class="message-header">
                       <span class="message-author">Anne Overton</span>
-                      <span class="message-time">5 hours ago</span>
+                      <span class="message-time">2 hours ago</span>
                     </div>
-                    <p class="message-text">Shared a new resource: "Listening to Your Community - A Practical Guide"</p>
+                    <p class="message-text">Posted in Kaitiaki: "Reflecting on the vow of Attentive Presence this week..."</p>
                   </div>
                 </div>
                 <div class="message-item">
@@ -323,7 +303,7 @@
                       <span class="message-author">Stuart Simpson</span>
                       <span class="message-time">Yesterday</span>
                     </div>
-                    <p class="message-text">RSVP'd to Haerenga Tapu 2026 with 2 guests</p>
+                    <p class="message-text">Shared a new resource in Practitioners group</p>
                   </div>
                 </div>
               </div>
@@ -336,12 +316,12 @@
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-8);">
             <div>
               <h1 style="font-size: var(--text-3xl); margin-bottom: var(--space-2);">Events</h1>
-              <p style="color: var(--color-gray-500);">Discover gatherings and connect with pioneers.</p>
+              <p style="color: var(--color-gray-500);">Discover gatherings and connect with wayfinders.</p>
             </div>
+            <button class="btn btn-primary host-admin-only" style="display: none;">Create Event</button>
           </div>
 
           <div style="display: grid; gap: var(--space-6);">
-            <!-- Event 1 -->
             <div class="event-card">
               <div class="event-date-box">
                 <span class="event-date-month">Mar</span>
@@ -365,16 +345,9 @@
                     </svg>
                     Online via Zoom
                   </span>
-                  <span class="event-meta-item">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                      <circle cx="9" cy="7" r="4"/>
-                    </svg>
-                    18 attending
-                  </span>
                 </div>
                 <p class="event-description">
-                  Monthly gathering exploring spiritual practices from "The Art of Missional Spirituality". This month we're exploring the practice of silence and solitude.
+                  Monthly gathering exploring spiritual practices. This month: the practice of silence and solitude.
                 </p>
                 <div style="margin-top: var(--space-4);">
                   <button class="btn btn-primary btn-sm">RSVP Now</button>
@@ -382,48 +355,6 @@
               </div>
             </div>
 
-            <!-- Event 2 -->
-            <div class="event-card">
-              <div class="event-date-box">
-                <span class="event-date-month">Mar</span>
-                <span class="event-date-day">18</span>
-                <span class="event-date-year">2025</span>
-              </div>
-              <div class="event-content">
-                <h3>Exploring Wayfinding Session</h3>
-                <div class="event-meta">
-                  <span class="event-meta-item">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <circle cx="12" cy="12" r="10"/>
-                      <path d="M12 6v6l4 2"/>
-                    </svg>
-                    7:30pm - 8:45pm NZT
-                  </span>
-                  <span class="event-meta-item">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                      <circle cx="12" cy="10" r="3"/>
-                    </svg>
-                    Online via Zoom
-                  </span>
-                  <span class="event-meta-item">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                      <circle cx="9" cy="7" r="4"/>
-                    </svg>
-                    12 attending
-                  </span>
-                </div>
-                <p class="event-description">
-                  Connect with others exploring new ways of being church. Guest speaker sharing about community-led ministry initiatives in Wellington.
-                </p>
-                <div style="margin-top: var(--space-4);">
-                  <span class="btn btn-secondary btn-sm">You're Going!</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Event 3 - Haerenga -->
             <div class="event-card" style="border-color: var(--color-secondary);">
               <div class="event-date-box" style="background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-secondary-dark) 100%);">
                 <span class="event-date-month">May</span>
@@ -432,17 +363,10 @@
               </div>
               <div class="event-content">
                 <div style="display: inline-block; padding: 2px 10px; background: var(--color-secondary); color: var(--color-gray-900); border-radius: var(--radius-full); font-size: var(--text-xs); font-weight: 600; margin-bottom: var(--space-2);">
-                  FEATURED EVENT
+                  FEATURED
                 </div>
                 <h3>Haerenga Tapu - A Sacred Pilgrimage</h3>
                 <div class="event-meta">
-                  <span class="event-meta-item">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <circle cx="12" cy="12" r="10"/>
-                      <path d="M12 6v6l4 2"/>
-                    </svg>
-                    7pm Friday - 11:30am Sunday
-                  </span>
                   <span class="event-meta-item">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                       <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
@@ -450,54 +374,12 @@
                     </svg>
                     Te MaungaRONGO Marae, Ohope
                   </span>
-                  <span class="event-meta-item">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                      <circle cx="9" cy="7" r="4"/>
-                    </svg>
-                    24 registered
-                  </span>
                 </div>
                 <p class="event-description">
-                  A sacred pilgrimage exploring God's story and missional wayfinding in Aotearoa New Zealand. Join pioneers, church planters, and leaders for community building, encouragement, and inspiration.
+                  A sacred pilgrimage exploring God's story and missional wayfinding in Aotearoa New Zealand.
                 </p>
                 <div style="margin-top: var(--space-4);">
                   <button class="btn btn-primary btn-sm">Register Interest</button>
-                  <a href="haerenga.html" class="btn btn-outline btn-sm">Learn More</a>
-                </div>
-              </div>
-            </div>
-
-            <!-- Event 4 -->
-            <div class="event-card">
-              <div class="event-date-box">
-                <span class="event-date-month">Apr</span>
-                <span class="event-date-day">1</span>
-                <span class="event-date-year">2025</span>
-              </div>
-              <div class="event-content">
-                <h3>Wayfinding Spirituality Gathering</h3>
-                <div class="event-meta">
-                  <span class="event-meta-item">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <circle cx="12" cy="12" r="10"/>
-                      <path d="M12 6v6l4 2"/>
-                    </svg>
-                    7:30pm - 9:00pm NZT
-                  </span>
-                  <span class="event-meta-item">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                      <circle cx="12" cy="10" r="3"/>
-                    </svg>
-                    Online via Zoom
-                  </span>
-                </div>
-                <p class="event-description">
-                  Continuing our exploration of spiritual practices. This month: Lectio Divina and contemplative Scripture reading.
-                </p>
-                <div style="margin-top: var(--space-4);">
-                  <button class="btn btn-outline btn-sm">RSVP</button>
                 </div>
               </div>
             </div>
@@ -509,120 +391,19 @@
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-8);">
             <div>
               <h1 style="font-size: var(--text-3xl); margin-bottom: var(--space-2);">Groups</h1>
-              <p style="color: var(--color-gray-500);">Connect with pioneer communities across Aotearoa.</p>
+              <p style="color: var(--color-gray-500);">Connect with wayfinding communities.</p>
             </div>
+            <button class="btn btn-primary admin-only" style="display: none;">Create Group</button>
           </div>
 
           <h3 style="font-size: var(--text-lg); margin-bottom: var(--space-4);">Your Groups</h3>
-          <div class="portal-grid" style="margin-bottom: var(--space-12);">
-            <div class="group-card">
-              <div class="group-card-header">
-                <div class="group-card-icon" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">W</div>
-                <div>
-                  <h3 class="group-card-title">Wayfinders Network</h3>
-                  <p class="group-card-rhythm">Monthly | 3rd Tuesday</p>
-                </div>
-              </div>
-              <p style="color: var(--color-gray-600); font-size: var(--text-sm); margin-bottom: var(--space-4);">
-                National network connecting pioneers exploring new ways of being church and participating in God's mission.
-              </p>
-              <div class="group-card-members">
-                <div class="member-avatars">
-                  <div class="member-avatar">DT</div>
-                  <div class="member-avatar">AO</div>
-                  <div class="member-avatar">SS</div>
-                  <div class="member-avatar">+</div>
-                </div>
-                <span class="member-count">28 members</span>
-              </div>
-            </div>
-
-            <div class="group-card">
-              <div class="group-card-header">
-                <div class="group-card-icon" style="background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);">S</div>
-                <div>
-                  <h3 class="group-card-title">Spirituality Circle</h3>
-                  <p class="group-card-rhythm">Monthly | 1st Tuesday</p>
-                </div>
-              </div>
-              <p style="color: var(--color-gray-600); font-size: var(--text-sm); margin-bottom: var(--space-4);">
-                Exploring 31 spiritual practices together. Currently working through "The Art of Missional Spirituality".
-              </p>
-              <div class="group-card-members">
-                <div class="member-avatars">
-                  <div class="member-avatar">DG</div>
-                  <div class="member-avatar">AT</div>
-                  <div class="member-avatar">ST</div>
-                </div>
-                <span class="member-count">15 members</span>
-              </div>
-            </div>
-
-            <div class="group-card">
-              <div class="group-card-header">
-                <div class="group-card-icon" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">C</div>
-                <div>
-                  <h3 class="group-card-title">Christchurch Pioneers</h3>
-                  <p class="group-card-rhythm">Fortnightly | Wednesdays</p>
-                </div>
-              </div>
-              <p style="color: var(--color-gray-600); font-size: var(--text-sm); margin-bottom: var(--space-4);">
-                Local pioneer community in Christchurch. Regular gatherings for support, prayer, and collaboration.
-              </p>
-              <div class="group-card-members">
-                <div class="member-avatars">
-                  <div class="member-avatar">JO</div>
-                  <div class="member-avatar">AB</div>
-                  <div class="member-avatar">ST</div>
-                </div>
-                <span class="member-count">9 members</span>
-              </div>
-            </div>
+          <div class="portal-grid" id="yourGroupsGrid" style="margin-bottom: var(--space-12);">
+            <!-- Populated by JS -->
           </div>
 
           <h3 style="font-size: var(--text-lg); margin-bottom: var(--space-4);">Discover Groups</h3>
-          <div class="portal-grid">
-            <div class="group-card">
-              <div class="group-card-header">
-                <div class="group-card-icon" style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);">W</div>
-                <div>
-                  <h3 class="group-card-title">Wellington Wayfinders</h3>
-                  <p class="group-card-rhythm">Monthly | Last Thursday</p>
-                </div>
-              </div>
-              <p style="color: var(--color-gray-600); font-size: var(--text-sm); margin-bottom: var(--space-4);">
-                Wellington-based pioneer community exploring mission in the capital region.
-              </p>
-              <div class="group-card-members">
-                <div class="member-avatars">
-                  <div class="member-avatar">SS</div>
-                  <div class="member-avatar">DG</div>
-                </div>
-                <span class="member-count">11 members</span>
-                <button class="btn btn-sm btn-outline" style="margin-left: auto;">Join</button>
-              </div>
-            </div>
-
-            <div class="group-card">
-              <div class="group-card-header">
-                <div class="group-card-icon" style="background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);">P</div>
-                <div>
-                  <h3 class="group-card-title">Prayer Network</h3>
-                  <p class="group-card-rhythm">Weekly prayer updates</p>
-                </div>
-              </div>
-              <p style="color: var(--color-gray-600); font-size: var(--text-sm); margin-bottom: var(--space-4);">
-                Committed to praying for pioneers and missional initiatives across Aotearoa.
-              </p>
-              <div class="group-card-members">
-                <div class="member-avatars">
-                  <div class="member-avatar">AO</div>
-                  <div class="member-avatar">HT</div>
-                </div>
-                <span class="member-count">22 members</span>
-                <button class="btn btn-sm btn-outline" style="margin-left: auto;">Join</button>
-              </div>
-            </div>
+          <div class="portal-grid" id="discoverGroupsGrid">
+            <!-- Populated by JS -->
           </div>
         </div>
 
@@ -635,13 +416,8 @@
               </svg>
               Back to Groups
             </a>
-            <div style="display: flex; align-items: flex-start; gap: var(--space-6);">
-              <div class="group-card-icon" style="width: 64px; height: 64px; font-size: var(--text-2xl); background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">W</div>
-              <div>
-                <h1 style="font-size: var(--text-3xl); margin-bottom: var(--space-2);">Wayfinders Network</h1>
-                <p style="color: var(--color-gray-500);">National network connecting pioneers exploring new ways of being church.</p>
-                <p style="color: var(--color-gray-400); font-size: var(--text-sm); margin-top: var(--space-2);">28 members | Monthly on 3rd Tuesday</p>
-              </div>
+            <div style="display: flex; align-items: flex-start; gap: var(--space-6);" id="groupDetailHeader">
+              <!-- Populated by JS -->
             </div>
           </div>
 
@@ -653,103 +429,10 @@
                 <button class="btn btn-primary btn-sm">New Post</button>
               </div>
 
-              <div class="message-list">
-                <div class="message-item">
-                  <div class="message-avatar">DT</div>
-                  <div class="message-content">
-                    <div class="message-header">
-                      <span class="message-author">Darryl Tempero</span>
-                      <span class="message-time">2 hours ago</span>
-                    </div>
-                    <p class="message-text">
-                      Great discussion last night about missional community! I was really encouraged by the stories shared about neighbourhood engagement. Looking forward to hearing how everyone goes this month putting some of these ideas into practice.
-                    </p>
-                    <div style="margin-top: var(--space-3); display: flex; gap: var(--space-4);">
-                      <button class="btn btn-ghost btn-sm">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                          <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3z"/>
-                          <path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/>
-                        </svg>
-                        12 likes
-                      </button>
-                      <button class="btn btn-ghost btn-sm">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-                        </svg>
-                        3 replies
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="message-item">
-                  <div class="message-avatar">SS</div>
-                  <div class="message-content">
-                    <div class="message-header">
-                      <span class="message-author">Stuart Simpson</span>
-                      <span class="message-time">Yesterday</span>
-                    </div>
-                    <p class="message-text">
-                      Just registered for Haerenga Tapu 2026! Anyone else planning to attend? Would be great to meet more of the network in person. The marae setting sounds incredible.
-                    </p>
-                    <div style="margin-top: var(--space-3); display: flex; gap: var(--space-4);">
-                      <button class="btn btn-ghost btn-sm">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                          <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3z"/>
-                          <path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/>
-                        </svg>
-                        8 likes
-                      </button>
-                      <button class="btn btn-ghost btn-sm">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-                        </svg>
-                        5 replies
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="message-item">
-                  <div class="message-avatar">AO</div>
-                  <div class="message-content">
-                    <div class="message-header">
-                      <span class="message-author">Anne Overton</span>
-                      <span class="message-time">2 days ago</span>
-                    </div>
-                    <p class="message-text">
-                      I've been reflecting on our conversation about community listening. Here's an article I found helpful - "The Art of Listening to Your Neighbourhood". It has some practical exercises we could try.
-                    </p>
-                    <div style="margin-top: var(--space-3); padding: var(--space-3); background: var(--color-gray-100); border-radius: var(--radius-md);">
-                      <p style="font-size: var(--text-sm); color: var(--color-primary); margin: 0;">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 4px;">
-                          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                          <polyline points="14 2 14 8 20 8"/>
-                        </svg>
-                        Listening_to_Your_Community.pdf
-                      </p>
-                    </div>
-                    <div style="margin-top: var(--space-3); display: flex; gap: var(--space-4);">
-                      <button class="btn btn-ghost btn-sm">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                          <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3z"/>
-                          <path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/>
-                        </svg>
-                        15 likes
-                      </button>
-                      <button class="btn btn-ghost btn-sm">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-                        </svg>
-                        7 replies
-                      </button>
-                    </div>
-                  </div>
-                </div>
+              <div class="message-list" id="groupMessages">
+                <!-- Populated by JS -->
               </div>
             </div>
-
-            <!-- Members sidebar would go here in full implementation -->
           </div>
         </div>
 
@@ -757,7 +440,7 @@
         <div id="page-resources" class="portal-page" style="display: none;">
           <div style="margin-bottom: var(--space-8);">
             <h1 style="font-size: var(--text-3xl); margin-bottom: var(--space-2);">Resources</h1>
-            <p style="color: var(--color-gray-500);">Articles, guides, and materials for your pioneer journey.</p>
+            <p style="color: var(--color-gray-500);">Articles, guides, and materials for your wayfinding journey.</p>
           </div>
 
           <div style="display: grid; gap: var(--space-4);">
@@ -769,8 +452,8 @@
                 </svg>
               </div>
               <div style="flex: 1;">
-                <h3 style="font-size: var(--text-lg); margin-bottom: var(--space-1);">The Art of Missional Spirituality - Discussion Guide</h3>
-                <p style="color: var(--color-gray-500); font-size: var(--text-sm); margin: 0;">PDF | 2.4 MB | Uploaded by Diane Gilliam-Weeks</p>
+                <h3 style="font-size: var(--text-lg); margin-bottom: var(--space-1);">Living from Love - Overview</h3>
+                <p style="color: var(--color-gray-500); font-size: var(--text-sm); margin: 0;">PDF | The Way of the Community of the Wayfinder</p>
               </div>
               <button class="btn btn-outline btn-sm">Download</button>
             </div>
@@ -783,8 +466,8 @@
                 </svg>
               </div>
               <div style="flex: 1;">
-                <h3 style="font-size: var(--text-lg); margin-bottom: var(--space-1);">Community Listening Toolkit</h3>
-                <p style="color: var(--color-gray-500); font-size: var(--text-sm); margin: 0;">PDF | 1.8 MB | Uploaded by Anne Overton</p>
+                <h3 style="font-size: var(--text-lg); margin-bottom: var(--space-1);">The Six Vows - Reflection Guide</h3>
+                <p style="color: var(--color-gray-500); font-size: var(--text-sm); margin: 0;">PDF | Daily practice guide</p>
               </div>
               <button class="btn btn-outline btn-sm">Download</button>
             </div>
@@ -797,8 +480,8 @@
                 </svg>
               </div>
               <div style="flex: 1;">
-                <h3 style="font-size: var(--text-lg); margin-bottom: var(--space-1);">Pioneer Course Overview</h3>
-                <p style="color: var(--color-gray-500); font-size: var(--text-sm); margin: 0;">PDF | 856 KB | Uploaded by Darryl Tempero</p>
+                <h3 style="font-size: var(--text-lg); margin-bottom: var(--space-1);">Wayfinding Metaphor - Te Waka</h3>
+                <p style="color: var(--color-gray-500); font-size: var(--text-sm); margin: 0;">PDF | Understanding the symbols</p>
               </div>
               <button class="btn btn-outline btn-sm">Download</button>
             </div>
@@ -812,23 +495,51 @@
               </div>
               <div style="flex: 1;">
                 <h3 style="font-size: var(--text-lg); margin-bottom: var(--space-1);">Wayfinding Introduction Video</h3>
-                <p style="color: var(--color-gray-500); font-size: var(--text-sm); margin: 0;">Video | 12:34 | Uploaded by Stuart Simpson</p>
+                <p style="color: var(--color-gray-500); font-size: var(--text-sm); margin: 0;">Video | 12:34</p>
               </div>
               <button class="btn btn-outline btn-sm">Watch</button>
             </div>
+          </div>
+        </div>
 
-            <div class="portal-card" style="display: flex; align-items: center; gap: var(--space-4);">
-              <div style="width: 48px; height: 48px; background: var(--color-accent); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; color: white; flex-shrink: 0;">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
-                  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
-                </svg>
+        <!-- Admin Page -->
+        <div id="page-admin" class="portal-page" style="display: none;">
+          <div style="margin-bottom: var(--space-8);">
+            <h1 style="font-size: var(--text-3xl); margin-bottom: var(--space-2);">Admin Panel</h1>
+            <p style="color: var(--color-gray-500);">Manage users, groups, and portal settings.</p>
+          </div>
+
+          <div class="portal-grid">
+            <div class="portal-card">
+              <div class="portal-card-header">
+                <h2 class="portal-card-title">User Management</h2>
               </div>
-              <div style="flex: 1;">
-                <h3 style="font-size: var(--text-lg); margin-bottom: var(--space-1);">Forge International Resources</h3>
-                <p style="color: var(--color-gray-500); font-size: var(--text-sm); margin: 0;">External Link | forgeinternational.com</p>
+              <p style="color: var(--color-gray-500); margin-bottom: var(--space-4);">Manage user roles and permissions.</p>
+              <button class="btn btn-outline btn-sm">Manage Users</button>
+            </div>
+
+            <div class="portal-card">
+              <div class="portal-card-header">
+                <h2 class="portal-card-title">Group Management</h2>
               </div>
-              <button class="btn btn-outline btn-sm">Visit</button>
+              <p style="color: var(--color-gray-500); margin-bottom: var(--space-4);">Create, edit, and manage groups.</p>
+              <button class="btn btn-outline btn-sm">Manage Groups</button>
+            </div>
+
+            <div class="portal-card">
+              <div class="portal-card-header">
+                <h2 class="portal-card-title">Content Moderation</h2>
+              </div>
+              <p style="color: var(--color-gray-500); margin-bottom: var(--space-4);">Review and moderate posts and comments.</p>
+              <button class="btn btn-outline btn-sm">View Queue</button>
+            </div>
+
+            <div class="portal-card">
+              <div class="portal-card-header">
+                <h2 class="portal-card-title">Site Settings</h2>
+              </div>
+              <p style="color: var(--color-gray-500); margin-bottom: var(--space-4);">Configure portal settings and appearance.</p>
+              <button class="btn btn-outline btn-sm">Settings</button>
             </div>
           </div>
         </div>

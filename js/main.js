@@ -71,38 +71,25 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }, observerOptions);
 
-  // Observe elements with animation classes
-  document.querySelectorAll('.feature-card, .team-card, .event-card, .timeline-item').forEach(el => {
+  // Observe elements
+  document.querySelectorAll('.feature-card, .team-card, .event-card, .timeline-item, .vow-card, .pathway-card').forEach(el => {
     el.style.opacity = '0';
     observer.observe(el);
   });
 
-  // Add staggered delays to grid items
-  document.querySelectorAll('.grid').forEach(grid => {
-    const items = grid.querySelectorAll('.feature-card, .team-card');
-    items.forEach((item, index) => {
-      item.style.animationDelay = `${index * 0.1}s`;
+  // Form handling
+  const contactForm = document.getElementById('contactForm');
+  if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const btn = this.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+
+      setTimeout(() => {
+        this.style.display = 'none';
+        document.getElementById('formSuccess').style.display = 'block';
+      }, 1500);
     });
-  });
+  }
 });
-
-// Helper function to format dates
-function formatDate(date) {
-  const options = { year: 'numeric', month: 'long', day: 'numeric' };
-  return new Date(date).toLocaleDateString('en-NZ', options);
-}
-
-// Helper function to format time
-function formatTime(time) {
-  return new Date(`2000-01-01T${time}`).toLocaleTimeString('en-NZ', {
-    hour: 'numeric',
-    minute: '2-digit',
-    hour12: true
-  });
-}
-
-// Export for use in other scripts
-window.ForgeUtils = {
-  formatDate,
-  formatTime
-};
