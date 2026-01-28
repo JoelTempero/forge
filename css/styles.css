@@ -235,6 +235,8 @@ p {
 .nav-logo img {
   height: 40px;
   width: auto;
+  /* Invert white logo to dark for light nav background */
+  filter: invert(1) sepia(1) saturate(5) hue-rotate(175deg) brightness(0.4);
 }
 
 .nav-links {
